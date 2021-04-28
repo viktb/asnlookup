@@ -1,0 +1,29 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    container:
+      image: golang:1.16-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: apk add --no-cache make
+      - name: Build
+        run: make
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    container:
+      image: golang:1.16-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: apk add --no-cache gcc make musl-dev
+      - name: Test
+        run: make test
