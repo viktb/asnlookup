@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net"
 
-	"github.com/kaorimatz/go-mrt"
+	"github.com/banviktor/go-mrt"
 )
 
 func mrtRIBToMapping(rib *mrt.TableDumpV2RIB) (*net.IPNet, uint32, error) {

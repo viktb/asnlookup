@@ -5,7 +5,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/kaorimatz/go-mrt"
+	"github.com/banviktor/go-mrt"
 
 	"github.com/banviktor/asnlookup/pkg/binarytrie"
 )
