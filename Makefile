@@ -18,10 +18,10 @@ deps:
 	go mod download
 
 $(BUILDDIR)/asnlookup: deps
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(BUILDDIR)/asnlookup ./cmd/asnlookup
+	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static"' -o $(BUILDDIR)/asnlookup ./cmd/asnlookup
 
 $(BUILDDIR)/asnlookup-utils: deps
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(BUILDDIR)/asnlookup-utils ./cmd/asnlookup-utils
+	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static"' -o $(BUILDDIR)/asnlookup-utils ./cmd/asnlookup-utils
 
 .PHONY: release
 release:
