@@ -1,0 +1,22 @@
+name: Build and upload binaries
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  build_and_archive:
+    name: Build
+    runs-on: ubuntu-22.04
+    container:
+      image: golang:1.20-alpine
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: apk add --no-cache make
+      - name: Build
+        run: make release-all
+      - name: Upload binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: binaries
+          path: asnlookup-*.tar.gz
