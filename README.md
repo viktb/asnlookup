@@ -24,7 +24,7 @@ sys     0m0,018s
 
 Using prebuilt binaries:
 ```shell
-curl -fsSL https://github.com/banviktor/asnlookup/releases/download/v0.1.0/asnlookup-linux-amd64-v0.1.0.tar.gz | sudo tar -zx -C /usr/local/bin
+curl -fsSL https://github.com/banviktor/asnlookup/releases/download/v0.1.1/asnlookup-linux-amd64-v0.1.1.tar.gz | sudo tar -zx -C /usr/local/bin
 ```
 
 From source:

@@ -1,4 +1,4 @@
-VERSION = 0.1.0
+VERSION = 0.1.1
 BUILDDIR ?= build
 BINDIR ?= /usr/local/bin
 DOCKER_IMAGE ?= banviktor/asnlookup
