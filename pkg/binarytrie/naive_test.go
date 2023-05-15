@@ -1,10 +1,12 @@
 package binarytrie_test
 
 import (
-	. "github.com/banviktor/asnlookup/pkg/binarytrie"
-	"github.com/stretchr/testify/assert"
 	"net"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	. "github.com/banviktor/asnlookup/pkg/binarytrie"
 )
 
 type testCase struct {

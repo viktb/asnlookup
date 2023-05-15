@@ -4,10 +4,11 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/banviktor/asnlookup"
-	"github.com/banviktor/asnlookup/pkg/database"
 	"net"
 	"os"
+
+	"github.com/banviktor/asnlookup"
+	"github.com/banviktor/asnlookup/pkg/database"
 )
 
 const (

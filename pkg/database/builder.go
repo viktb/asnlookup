@@ -2,10 +2,12 @@ package database
 
 import (
 	"fmt"
-	"github.com/banviktor/asnlookup/pkg/binarytrie"
-	"github.com/kaorimatz/go-mrt"
 	"io"
 	"net"
+
+	"github.com/kaorimatz/go-mrt"
+
+	"github.com/banviktor/asnlookup/pkg/binarytrie"
 )
 
 type builder struct {

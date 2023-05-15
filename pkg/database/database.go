@@ -3,10 +3,11 @@ package database
 import (
 	"encoding"
 	"fmt"
-	"github.com/banviktor/asnlookup/pkg/binarytrie"
 	"io"
 	"io/ioutil"
 	"net"
+
+	"github.com/banviktor/asnlookup/pkg/binarytrie"
 )
 
 // AutonomousSystem represents an Autonomous System on the Internet.

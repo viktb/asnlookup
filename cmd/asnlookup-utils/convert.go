@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/banviktor/asnlookup/pkg/database"
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
+
+	"github.com/urfave/cli/v2"
+
+	"github.com/banviktor/asnlookup/pkg/database"
 )
 
 var convertCommand = &cli.Command{

@@ -1,6 +1,8 @@
 package binarytrie
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	// ErrInvalidIPAddress IP address is invalid.

@@ -2,8 +2,9 @@ package binarytrie_test
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestEmptyOptimizedNaiveTrieLookup(t *testing.T) {

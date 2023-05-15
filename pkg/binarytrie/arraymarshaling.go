@@ -1,6 +1,8 @@
 package binarytrie
 
-import "encoding/binary"
+import (
+	"encoding/binary"
+)
 
 const (
 	arrayTrieMarshalHeader  = "github.com/banviktor/asnlookup/pkg/binarytrie\x00ArrayTrie\x00"

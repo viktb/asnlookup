@@ -1,9 +1,11 @@
 package binarytrie_test
 
 import (
-	. "github.com/banviktor/asnlookup/pkg/binarytrie"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	. "github.com/banviktor/asnlookup/pkg/binarytrie"
 )
 
 func TestEmptyMarshaledArrayTrieLookup(t *testing.T) {

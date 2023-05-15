@@ -1,6 +1,8 @@
 package binarytrie
 
-import "net"
+import (
+	"net"
+)
 
 func parseIpNet(ipNet *net.IPNet) (net.IP, int, error) {
 	ip := ipNet.IP.To16()

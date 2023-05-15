@@ -1,6 +1,8 @@
 package database
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	// ErrNotFound AS not found.

@@ -1,6 +1,8 @@
 package binarytrie
 
-import "sync"
+import (
+	"sync"
+)
 
 // Optimize performs level compression and path compression on the trie.
 //

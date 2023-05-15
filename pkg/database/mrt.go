@@ -3,8 +3,9 @@ package database
 import (
 	"encoding/binary"
 	"errors"
-	"github.com/kaorimatz/go-mrt"
 	"net"
+
+	"github.com/kaorimatz/go-mrt"
 )
 
 func mrtRIBToMapping(rib *mrt.TableDumpV2RIB) (*net.IPNet, uint32, error) {

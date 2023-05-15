@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/banviktor/asnlookup"
+
 	"github.com/urfave/cli/v2"
+
+	"github.com/banviktor/asnlookup"
 )
 
 var versionCommand = &cli.Command{
