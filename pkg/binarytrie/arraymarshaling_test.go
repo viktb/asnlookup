@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/banviktor/asnlookup/pkg/binarytrie"
+	. "github.com/viktb/asnlookup/pkg/binarytrie"
 )
 
 func TestEmptyMarshaledArrayTrieLookup(t *testing.T) {

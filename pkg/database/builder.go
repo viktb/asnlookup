@@ -5,9 +5,9 @@ import (
 	"io"
 	"net"
 
-	"github.com/banviktor/go-mrt"
+	"github.com/viktb/go-mrt"
 
-	"github.com/banviktor/asnlookup/pkg/binarytrie"
+	"github.com/viktb/asnlookup/pkg/binarytrie"
 )
 
 type builder struct {

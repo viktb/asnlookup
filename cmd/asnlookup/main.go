@@ -7,8 +7,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/banviktor/asnlookup"
-	"github.com/banviktor/asnlookup/pkg/database"
+	"github.com/viktb/asnlookup"
+	"github.com/viktb/asnlookup/pkg/database"
 )
 
 const (

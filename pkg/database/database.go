@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net"
 
-	"github.com/banviktor/asnlookup/pkg/binarytrie"
+	"github.com/viktb/asnlookup/pkg/binarytrie"
 )
 
 // AutonomousSystem represents an Autonomous System on the Internet.

@@ -6,7 +6,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/banviktor/asnlookup/pkg/database"
+	"github.com/viktb/asnlookup/pkg/database"
 )
 
 var convertCommand = &cli.Command{

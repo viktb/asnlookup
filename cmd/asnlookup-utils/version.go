@@ -5,7 +5,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/banviktor/asnlookup"
+	"github.com/viktb/asnlookup"
 )
 
 var versionCommand = &cli.Command{
