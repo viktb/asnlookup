@@ -15,6 +15,6 @@ var versionCommand = &cli.Command{
 }
 
 func versionAction(_ *cli.Context) error {
-	fmt.Printf("asnlookup-utils v%s\n", asnlookup.Version)
+	fmt.Printf("asnlookup-utils %s\n", asnlookup.Version)
 	return nil
 }

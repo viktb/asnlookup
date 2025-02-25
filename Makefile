@@ -5,6 +5,7 @@ DOCKER_IMAGE ?= banviktor/asnlookup
 GOOS ?= $(shell go env GOOS)
 GOARCH ?= $(shell go env GOARCH)
 DATE = $(shell date -u +%Y%m%d)
+VERSION = $(shell git describe --always --dirty)
 
 .PHONY: build
 build: $(BUILDDIR)/asnlookup $(BUILDDIR)/asnlookup-utils
@@ -18,10 +19,10 @@ deps:
 	go mod download
 
 $(BUILDDIR)/asnlookup: deps
-	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static"' -o $(BUILDDIR)/asnlookup ./cmd/asnlookup
+	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static" -X github.com/viktb/asnlookup.Version=$(VERSION)' -o $(BUILDDIR)/asnlookup ./cmd/asnlookup
 
 $(BUILDDIR)/asnlookup-utils: deps
-	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static"' -o $(BUILDDIR)/asnlookup-utils ./cmd/asnlookup-utils
+	CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags '-extldflags "-static" -X github.com/viktb/asnlookup.Version=$(VERSION)' -o $(BUILDDIR)/asnlookup-utils ./cmd/asnlookup-utils
 
 .PHONY: release
 release:

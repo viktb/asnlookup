@@ -40,7 +40,7 @@ func main() {
 	// Check provided arguments.
 	flag.Parse()
 	if *version {
-		fmt.Printf("asnlookup v%s\n", asnlookup.Version)
+		fmt.Printf("asnlookup %s\n", asnlookup.Version)
 		os.Exit(0)
 	}
 	if !*batch && flag.NArg() != 1 {
