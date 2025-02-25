@@ -6,9 +6,9 @@ on:
 jobs:
   build_and_archive:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     container:
-      image: golang:1.20-alpine
+      image: golang:1.24-alpine
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies

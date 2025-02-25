@@ -7,9 +7,9 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     container:
-      image: golang:1.20-alpine
+      image: golang:1.24-alpine
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
@@ -18,9 +18,9 @@ jobs:
         run: make
   test:
     name: Test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     container:
-      image: golang:1.20-alpine
+      image: golang:1.24-alpine
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
