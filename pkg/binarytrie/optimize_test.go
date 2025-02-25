@@ -14,13 +14,13 @@ func TestEmptyOptimizedNaiveTrieLookup(t *testing.T) {
 }
 
 func TestTrivialOptimizedNaiveTrieLookup(t *testing.T) {
-	trie, testCases := newTrivialNaiveTrie()
+	trie, testCases := newTrivialNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	testLookup(t, trie, testCases)
 }
 
 func TestPopulatedOptimizedNaiveTrieLookup(t *testing.T) {
-	trie, testCases := newPopulatedNaiveTrie()
+	trie, testCases := newPopulatedNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	testLookup(t, trie, testCases)
 }
@@ -35,7 +35,7 @@ func TestEmptyOptimizedArrayTrieLookup(t *testing.T) {
 }
 
 func TestTrivialOptimizedArrayTrieLookup(t *testing.T) {
-	trie, testCases := newTrivialNaiveTrie()
+	trie, testCases := newTrivialNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	arrayTrie := trie.ToArrayTrie()
 
@@ -44,7 +44,7 @@ func TestTrivialOptimizedArrayTrieLookup(t *testing.T) {
 }
 
 func TestPopulatedOptimizedArrayTrieLookup(t *testing.T) {
-	trie, testCases := newPopulatedNaiveTrie()
+	trie, testCases := newPopulatedNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	arrayTrie := trie.ToArrayTrie()
 

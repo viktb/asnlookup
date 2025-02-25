@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	. "github.com/viktb/asnlookup/pkg/binarytrie"
 )
@@ -21,12 +22,12 @@ func TestEmptyNaiveTrieLookup(t *testing.T) {
 }
 
 func TestTrivialNaiveTrieLookup(t *testing.T) {
-	trie, testCases := newTrivialNaiveTrie()
+	trie, testCases := newTrivialNaiveTrie(t)
 	testLookup(t, trie, testCases)
 }
 
 func TestPopulatedNaiveTrieLookup(t *testing.T) {
-	trie, testCases := newPopulatedNaiveTrie()
+	trie, testCases := newPopulatedNaiveTrie(t)
 	testLookup(t, trie, testCases)
 }
 
@@ -41,10 +42,10 @@ func newEmptyNaiveTrie() (*NaiveTrie, []testCase) {
 	return trie, testCases
 }
 
-func newTrivialNaiveTrie() (*NaiveTrie, []testCase) {
+func newTrivialNaiveTrie(t *testing.T) (*NaiveTrie, []testCase) {
 	trie := NewNaiveTrie()
 	_, ipNet, _ := net.ParseCIDR("0.0.0.0/0")
-	trie.Insert(ipNet, 42)
+	require.NoError(t, trie.Insert(ipNet, 42))
 
 	testCases := []testCase{
 		{"0.0.0.0", 42, nil},
@@ -54,7 +55,7 @@ func newTrivialNaiveTrie() (*NaiveTrie, []testCase) {
 	return trie, testCases
 }
 
-func newPopulatedNaiveTrie() (*NaiveTrie, []testCase) {
+func newPopulatedNaiveTrie(t *testing.T) (*NaiveTrie, []testCase) {
 	trie := NewNaiveTrie()
 	testData := []struct {
 		net string
@@ -70,7 +71,7 @@ func newPopulatedNaiveTrie() (*NaiveTrie, []testCase) {
 	}
 	for _, td := range testData {
 		_, ipNet, _ := net.ParseCIDR(td.net)
-		trie.Insert(ipNet, td.asn)
+		require.NoError(t, trie.Insert(ipNet, td.asn))
 	}
 
 	testCases := []testCase{

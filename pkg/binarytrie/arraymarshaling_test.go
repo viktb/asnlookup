@@ -24,7 +24,7 @@ func TestEmptyMarshaledArrayTrieLookup(t *testing.T) {
 }
 
 func TestTrivialMarshaledArrayTrieLookup(t *testing.T) {
-	trie, testCases := newTrivialNaiveTrie()
+	trie, testCases := newTrivialNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	arrayTrie := trie.ToArrayTrie()
 
@@ -39,7 +39,7 @@ func TestTrivialMarshaledArrayTrieLookup(t *testing.T) {
 }
 
 func TestPopulatedMarshaledArrayTrieLookup(t *testing.T) {
-	trie, testCases := newPopulatedNaiveTrie()
+	trie, testCases := newPopulatedNaiveTrie(t)
 	assert.NoError(t, trie.Optimize(0.5), "Optimize should not error")
 	arrayTrie := trie.ToArrayTrie()
 
