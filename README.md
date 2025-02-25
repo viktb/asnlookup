@@ -24,13 +24,13 @@ sys     0m0,018s
 
 Using prebuilt binaries:
 ```shell
-curl -fsSL https://github.com/viktb/asnlookup/releases/download/v0.1.1/asnlookup-linux-amd64-v0.1.1.tar.gz | sudo tar -zx -C /usr/local/bin
+curl -fsSL https://github.com/viktb/asnlookup/releases/download/v0.1.2/asnlookup-linux-amd64-v0.1.2.tar.gz | sudo tar -zx -C /usr/local/bin
 ```
 
 From source:
 ```shell
-make
-sudo make install
+go install github.com/viktb/asnlookup/cmd/asnlookup@latest
+go install github.com/viktb/asnlookup/cmd/asnlookup-utils@latest
 ```
 
 ## Usage
