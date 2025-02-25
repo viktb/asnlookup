@@ -1,72 +1,88 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
-
-	"github.com/urfave/cli/v2"
 
 	"github.com/viktb/asnlookup/pkg/database"
 )
 
-var convertCommand = &cli.Command{
-	Name:  "convert",
-	Usage: "converts an MRT file to an asnlookup database",
-	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Name:     "input",
-			Aliases:  []string{"i", "in"},
-			Required: true,
-			Usage:    "input MRT `file`",
-		},
-		&cli.StringFlag{
-			Name:     "output",
-			Aliases:  []string{"o", "out"},
-			Required: true,
-			Usage:    "output destination `file`",
-		},
-		&cli.IntFlag{
-			Name:  "optimization",
-			Value: 5,
-			Usage: "set optimization `level` (1 - smallest, 8 - fastest)",
-		},
-	},
-	Action: convertAction,
+func executeConvertCommand(args []string) {
+	convertCmd := flag.NewFlagSet("convert", flag.ExitOnError)
+
+	inputFile := convertCmd.String("input", "", "input MRT `file` (required)")
+	inShort := convertCmd.String("i", "", "input MRT `file` (shorthand)")
+	inAlt := convertCmd.String("in", "", "input MRT `file` (shorthand)")
+
+	outputFile := convertCmd.String("output", "", "output destination `file` (required)")
+	outShort := convertCmd.String("o", "", "output destination `file` (shorthand)")
+	outAlt := convertCmd.String("out", "", "output destination `file` (shorthand)")
+
+	optimization := convertCmd.Int("optimization", 5, "set optimization `level` (1 - smallest, 8 - fastest)")
+
+	if err := convertCmd.Parse(args); err != nil {
+		log.Fatal(err)
+	}
+
+	// Handle flag aliases - use the first non-empty value
+	inputPath := firstNonEmpty(*inputFile, *inShort, *inAlt)
+	outputPath := firstNonEmpty(*outputFile, *outShort, *outAlt)
+
+	// Check required flags
+	if inputPath == "" {
+		log.Fatal("Required flag --input not provided")
+	}
+	if outputPath == "" {
+		log.Fatal("Required flag --output not provided")
+	}
+
+	// Execute the convert action
+	err := doConvert(inputPath, outputPath, *optimization)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
-func convertAction(ctx *cli.Context) error {
+func firstNonEmpty(values ...string) string {
+	for _, v := range values {
+		if v != "" {
+			return v
+		}
+	}
+	return ""
+}
+
+func doConvert(inputPath, outputPath string, optimization int) error {
 	var err error
 
-	optimization := ctx.Int("optimization")
 	if optimization < 1 || optimization > 8 {
 		log.Fatalf("Optimization level must be between 1 and 8")
 	}
 
 	// Initialize input.
-	inFile := os.Stdin
-	inFilePath := ctx.String("input")
-	if inFilePath != "-" {
-		inFile, err = os.OpenFile(inFilePath, os.O_RDONLY, 0)
+	inputFile := os.Stdin
+	if inputPath != "-" {
+		inputFile, err = os.OpenFile(inputPath, os.O_RDONLY, 0)
 		if err != nil {
 			log.Fatalf("Failed to open input file: %v", err)
 		}
-		defer inFile.Close()
+		defer inputFile.Close()
 	}
 
 	// Initialize output.
-	outFile := os.Stdout
-	outFilePath := ctx.String("output")
-	if outFilePath != "-" {
-		outFile, err = os.OpenFile(outFilePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	outputFile := os.Stdout
+	if outputPath != "-" {
+		outputFile, err = os.OpenFile(outputPath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 		if err != nil {
 			log.Fatalf("Failed to create output file: %v", err)
 		}
-		defer outFile.Close()
+		defer outputFile.Close()
 	}
 
 	// Build database.
 	builder := database.NewBuilder()
-	err = builder.ImportMRT(inFile)
+	err = builder.ImportMRT(inputFile)
 	if err != nil {
 		log.Fatalf("Failed to import: %v", err)
 	}
@@ -79,11 +95,11 @@ func convertAction(ctx *cli.Context) error {
 	// Dump optimized database.
 	data, err := db.MarshalBinary()
 	if err != nil {
-		log.Fatalf("Unexpected error: %v", err)
+		log.Fatalf("Failed to marshal database: %v", err)
 	}
-	_, err = outFile.Write(data)
+	_, err = outputFile.Write(data)
 	if err != nil {
-		log.Fatalf("Unexpected error: %v", err)
+		log.Fatalf("Failed to write database to file: %v", err)
 	}
 
 	return nil
