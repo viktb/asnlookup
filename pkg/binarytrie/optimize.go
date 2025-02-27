@@ -1,9 +1,5 @@
 package binarytrie
 
-import (
-	"sync"
-)
-
 // Optimize performs level compression and path compression on the trie.
 //
 // This operation makes the trie immutable.
@@ -93,15 +89,9 @@ func (n *naiveTrieNode) compressPaths(firstNode *naiveTrieNode, depth uint8, pre
 		return
 	}
 
-	wg := &sync.WaitGroup{}
-	wg.Add(len(n.children))
 	for _, child := range n.children {
-		go func(child *naiveTrieNode) {
-			defer wg.Done()
-			child.compressPaths(nil, 0, 0)
-		}(child)
+		child.compressPaths(nil, 0, 0)
 	}
-	wg.Wait()
 }
 
 func (n *naiveTrieNode) compressLevels(fillFactor float32) {
@@ -144,13 +134,7 @@ func (n *naiveTrieNode) compressLevels(fillFactor float32) {
 		n.children = nodes
 	}
 
-	wg := &sync.WaitGroup{}
-	wg.Add(len(n.children))
 	for _, child := range n.children {
-		go func(child *naiveTrieNode) {
-			defer wg.Done()
-			child.compressLevels(fillFactor)
-		}(child)
+		child.compressLevels(fillFactor)
 	}
-	wg.Wait()
 }
