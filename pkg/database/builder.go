@@ -10,13 +10,22 @@ import (
 	"github.com/viktb/asnlookup/pkg/binarytrie"
 )
 
-type builder struct {
+// Builder is a helper for constructing a Database.
+type Builder struct {
 	prototype  *binarytrie.NaiveTrie
 	fillFactor float32
 }
 
+// NewBuilder creates a Builder.
+func NewBuilder() *Builder {
+	return &Builder{
+		prototype:  binarytrie.NewNaiveTrie(),
+		fillFactor: 0.5,
+	}
+}
+
 // InsertMapping stores an IP prefix - AutonomousSystem mapping.
-func (b *builder) InsertMapping(ipNet *net.IPNet, asn uint32) error {
+func (b *Builder) InsertMapping(ipNet *net.IPNet, asn uint32) error {
 	err := b.prototype.Insert(ipNet, asn)
 	if err != nil {
 		return err
@@ -25,7 +34,7 @@ func (b *builder) InsertMapping(ipNet *net.IPNet, asn uint32) error {
 }
 
 // ImportMRT imports records from an MRT stream.
-func (b *builder) ImportMRT(input io.Reader) error {
+func (b *Builder) ImportMRT(input io.Reader) error {
 	r := mrt.NewReader(input)
 
 	for {
@@ -57,27 +66,19 @@ func (b *builder) ImportMRT(input io.Reader) error {
 }
 
 // SetFillFactor sets the fill factor parameter for the optimization phase.
-func (b *builder) SetFillFactor(fillFactor float32) {
+func (b *Builder) SetFillFactor(fillFactor float32) {
 	b.fillFactor = fillFactor
 }
 
 // Build builds the Database instance.
-func (b *builder) Build() (Database, error) {
+func (b *Builder) Build() (*Database, error) {
 	err := b.prototype.Optimize(b.fillFactor)
 	if err != nil {
 		return nil, err
 	}
-	return &database{
+	return &Database{
 		mappings: b.prototype.ToArrayTrie(),
 	}, nil
-}
-
-// NewBuilder creates a builder.
-func NewBuilder() *builder {
-	return &builder{
-		prototype:  binarytrie.NewNaiveTrie(),
-		fillFactor: 0.5,
-	}
 }
 
 func isNullMask(mask net.IPMask) bool {

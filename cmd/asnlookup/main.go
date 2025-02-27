@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"net"
@@ -80,9 +81,9 @@ func main() {
 	}
 }
 
-func lookup(db database.Database, ip *net.IP) {
+func lookup(db *database.Database, ip *net.IP) {
 	as, err := db.Lookup(*ip)
-	if err == database.ErrNotFound {
+	if errors.Is(err, database.ErrASNotFound) {
 		fmt.Println("not found")
 		return
 	}

@@ -5,6 +5,6 @@ import (
 )
 
 var (
-	// ErrNotFound AS not found.
-	ErrNotFound = errors.New("AS not found")
+	// ErrASNotFound is returned when an autonomous system for the specified IP was not found.
+	ErrASNotFound = errors.New("autonomous system not found")
 )
